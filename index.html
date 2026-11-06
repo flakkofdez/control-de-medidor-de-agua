@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multifamiliar El Álamo Etapa 1 - Control de Agua</title>
+  <link rel="stylesheet" href="styles.css?v=6">
+  <!-- Librería para generación directa de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- ENCABEZADO Y CONFIGURACIÓN GLOBAL -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <div class="brand-icon">💧</div>
+        <div class="brand-info">
+          <h1>Multifamiliar El Álamo Etapa 1</h1>
+          <p>Control de Consumo de Agua y Cobranza</p>
+        </div>
+      </div>
+
+      <!-- Acciones de Cabecera: Periodo, Tarifa y Botón PDF -->
+      <div class="header-actions">
+        <!-- Campo de Mes / Periodo de Lectura -->
+        <div class="period-config-card">
+          <label for="reading-period">Mes / Periodo:</label>
+          <div class="period-input-wrapper">
+            <span class="period-icon">📅</span>
+            <input 
+              type="text" 
+              id="reading-period" 
+              class="period-input" 
+              value="Noviembre 2026" 
+              placeholder="Ej: Noviembre 2026"
+              title="Indique el mes o periodo de facturación"
+            />
+          </div>
+        </div>
+
+        <!-- Campo global de Tarifa por metro cúbico -->
+        <div class="rate-config-card">
+          <label for="global-rate">Tarifa por m³:</label>
+          <div class="rate-input-wrapper">
+            <span class="rate-currency-prefix">S/</span>
+            <input 
+              type="number" 
+              id="global-rate" 
+              class="rate-input" 
+              value="4.00" 
+              step="0.01" 
+              min="0" 
+              title="Configure la tarifa por metro cúbico en Soles"
+            />
+            <span class="rate-unit-suffix">/m³</span>
+          </div>
+        </div>
+
+        <!-- Fechas Globales de Toma de Lectura -->
+        <div class="date-config-card">
+          <label for="global-date-prev">Toma Anterior:</label>
+          <input 
+            type="date" 
+            id="global-date-prev" 
+            class="global-date-input" 
+            title="Fecha global de la lectura anterior"
+          />
+        </div>
+
+        <div class="date-config-card">
+          <label for="global-date-curr">Toma Actual:</label>
+          <input 
+            type="date" 
+            id="global-date-curr" 
+            class="global-date-input" 
+            title="Fecha global de la lectura actual"
+          />
+        </div>
+
+        <!-- Botón superior para Descargar PDF -->
+        <button type="button" id="btn-export-pdf-top" class="btn-pdf" title="Descargar reporte en archivo PDF">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="12" y2="18"></line>
+            <line x1="15" y1="15" x2="12" y2="18"></line>
+          </svg>
+          Descargar PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- TABLA DINÁMICA DE DEPARTAMENTOS -->
+    <main class="table-card">
+      <div class="table-responsive">
+        <table class="water-table">
+          <thead>
+            <tr>
+              <th style="width: 18%;">Departamento / Tienda</th>
+              <th style="width: 17%;">
+                <div class="th-column-title">Lectura Mes Anterior</div>
+                <div class="th-date-subtext" id="th-date-prev-subtext"></div>
+              </th>
+              <th style="width: 17%;">
+                <div class="th-column-title">Lectura Mes Actual</div>
+                <div class="th-date-subtext" id="th-date-curr-subtext"></div>
+              </th>
+              <th style="width: 13%; text-align: center;">
+                <div class="th-photo-content">
+                  <span>Foto Medidor</span>
+                  <button type="button" id="btn-clear-all-photos" class="btn-clear-all-photos" title="Eliminar todas las fotos de una sola vez">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                  </button>
+                </div>
+              </th>
+              <th style="width: 15%;">Consumo (m³)</th>
+              <th style="width: 12%;">Pago (S/)</th>
+              <th style="width: 8%; text-align: center;">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Las filas se renderizan dinámicamente desde app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PIE DE TABLA: BOTÓN AGREGAR -->
+      <div class="table-footer">
+        <button type="button" id="btn-add-row" class="btn-add">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Agregar nuevo departamento
+        </button>
+        <span id="rows-count" class="rows-counter">0 departamentos registrados</span>
+      </div>
+    </main>
+
+    <!-- PANEL DE RESUMEN INFERIOR -->
+    <section class="summary-panel">
+      <!-- Total Consumo -->
+      <div class="summary-card consumption">
+        <div class="summary-icon">🌊</div>
+        <div class="summary-details">
+          <span class="summary-label">Total Consumo</span>
+          <span class="summary-value" id="total-consumption">0.000 m³</span>
+        </div>
+      </div>
+
+      <!-- Total a Cobrar -->
+      <div class="summary-card payment">
+        <div class="summary-icon">💰</div>
+        <div class="summary-details">
+          <span class="summary-label">Total a Cobrar</span>
+          <span class="summary-value" id="total-payment">S/ 0.00</span>
+        </div>
+      </div>
+
+      <!-- Botón inferior para Descargar PDF -->
+      <div class="summary-card action-card">
+        <button type="button" id="btn-export-pdf-bottom" class="btn-pdf-large" title="Descargar reporte en archivo PDF">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="12" y2="18"></line>
+            <line x1="15" y1="15" x2="12" y2="18"></line>
+          </svg>
+          Descargar Reporte PDF
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL / VISOR DE FOTO DEL MEDIDOR -->
+  <div id="photo-modal" class="photo-modal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="photo-modal-backdrop" id="modal-backdrop"></div>
+    <div class="photo-modal-card">
+      <div class="photo-modal-header">
+        <h3 id="modal-title" class="modal-title">Foto del Medidor</h3>
+        <button type="button" class="btn-close-modal" id="btn-close-modal" title="Cerrar ventana">✕</button>
+      </div>
+      <div class="photo-modal-body">
+        <img id="modal-img" src="" alt="Evidencia de lectura de medidor" class="modal-img" />
+      </div>
+      <div class="photo-modal-footer">
+        <span id="modal-caption" class="modal-caption"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=11"></script>
+</body>
+</html>

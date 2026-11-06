@@ -1,0 +1,1054 @@
+/* ==========================================================================
+   ESTILOS GENERALES Y VARIABLES - CONTROL DE AGUA
+   Paleta inspirada en recibos de servicios de agua potable
+   ========================================================================== */
+
+:root {
+  --primary-navy: #0f3b6c;
+  --primary-blue: #0284c7;
+  --primary-blue-hover: #0369a1;
+  --primary-light: #e0f2fe;
+  --primary-border: #bae6fd;
+  
+  --bg-gradient-start: #f0f7fc;
+  --bg-gradient-end: #e2eef9;
+  --surface-card: #ffffff;
+  
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  
+  --border-color: #e2e8f0;
+  --border-focus: #38bdf8;
+  
+  /* Alertas / Excepciones */
+  --alert-bg: #fff1f2;
+  --alert-border: #fecdd3;
+  --alert-text: #b91c1c;
+  --alert-badge-bg: #fee2e2;
+  --alert-badge-border: #fca5a5;
+
+  /* Resumen */
+  --summary-consumption-bg: #f0f9ff;
+  --summary-consumption-border: #b9e6fe;
+  --summary-payment-bg: #ecfdf5;
+  --summary-payment-border: #a7f3d0;
+  --summary-payment-text: #047857;
+
+  --shadow-sm: 0 1px 2px 0 rgba(15, 59, 108, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 59, 108, 0.08), 0 2px 4px -2px rgba(15, 59, 108, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 59, 108, 0.08), 0 4px 6px -4px rgba(15, 59, 108, 0.04);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   ENCABEZADO
+   ========================================================================== */
+
+.app-header {
+  background: var(--surface-card);
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-navy));
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+  flex-shrink: 0;
+}
+
+.brand-info h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  letter-spacing: -0.02em;
+}
+
+.brand-info p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* Header Actions y Botón PDF */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-pdf {
+  background: #ffffff;
+  color: var(--primary-navy);
+  border: 1.5px solid var(--primary-blue);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.btn-pdf:hover {
+  background: var(--primary-light);
+  color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-pdf:active {
+  transform: translateY(0);
+}
+
+/* Campo de Mes / Periodo */
+.period-config-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.period-config-card label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  white-space: nowrap;
+}
+
+.period-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.period-icon {
+  position: absolute;
+  left: 0.5rem;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.period-input {
+  width: 155px;
+  padding: 0.35rem 0.5rem 0.35rem 1.8rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.period-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+}
+
+/* Campo Global de Tarifa */
+.rate-config-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+/* Campos Globales de Fecha */
+.date-config-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.date-config-card label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  white-space: nowrap;
+}
+
+.global-date-input {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.global-date-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+}
+
+.rate-config-card label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  white-space: nowrap;
+}
+
+.rate-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rate-currency-prefix {
+  position: absolute;
+  left: 0.65rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.rate-input {
+  width: 110px;
+  padding: 0.45rem 2rem 0.45rem 1.85rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  text-align: right;
+  transition: all 0.2s ease;
+}
+
+.rate-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.rate-unit-suffix {
+  position: absolute;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   SECCIÓN DE TABLA
+   ========================================================================== */
+
+.table-card {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.water-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.water-table th {
+  background: #1D3E85;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.95rem 1rem;
+  border-bottom: 2px solid #142f68;
+  white-space: nowrap;
+}
+
+.th-column-title {
+  line-height: 1.2;
+}
+
+.th-date-subtext {
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.9;
+  color: #dbeafe;
+  margin-top: 3px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Cabecera de Foto Medidor y Botón Papelera */
+.th-photo-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.btn-clear-all-photos {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.btn-clear-all-photos:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+}
+
+.btn-clear-all-photos:active {
+  transform: scale(0.95);
+}
+
+.water-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.water-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+/* Bloque Dpto 101 hasta 503 (Cian pastel derivado de #149DBF) */
+.water-table tbody tr.row-cyan-group {
+  background-color: #e6f6fa;
+  border-left: 3.5px solid #149DBF;
+}
+
+.water-table tbody tr.row-cyan-group:hover {
+  background-color: #d7f1f7;
+}
+
+/* Bloque Dpto 601 en adelante y Tiendas (Fondo neutro alternado sutil) */
+.water-table tbody tr.row-neutral-even {
+  background-color: #ffffff;
+  border-left: 3.5px solid transparent;
+}
+
+.water-table tbody tr.row-neutral-odd {
+  background-color: #f8fafc;
+  border-left: 3.5px solid transparent;
+}
+
+.water-table tbody tr.row-neutral-even:hover,
+.water-table tbody tr.row-neutral-odd:hover {
+  background-color: #f1f5f9;
+}
+
+/* Fila con alerta (Lectura Actual < Anterior) */
+.water-table tbody tr.row-alert {
+  background-color: var(--alert-bg) !important;
+  border-left: 4px solid var(--alert-text) !important;
+}
+
+.water-table tbody tr.row-alert:hover {
+  background-color: #fee2e2 !important;
+}
+
+/* Inputs de tabla */
+.table-input {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  background: #ffffff;
+  transition: all 0.2s ease;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+}
+
+.table-input.number-input {
+  text-align: right;
+  font-family: inherit;
+}
+
+.table-input.has-error {
+  border-color: var(--alert-badge-border);
+  background: #fffafa;
+}
+
+/* Grupo de celda con Lectura y Fecha apiladas */
+.reading-cell-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.date-row-input {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.4rem !important;
+  color: #475569 !important;
+  background-color: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: var(--radius-sm) !important;
+  height: 25px !important;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.date-row-input:hover {
+  background-color: #ffffff !important;
+  border-color: #94a3b8 !important;
+}
+
+.date-row-input:focus {
+  background-color: #ffffff !important;
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* Celdas calculadas (Consumo y Pago) */
+.calculated-cell {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.consumption-value {
+  color: var(--primary-navy);
+  font-size: 0.95rem;
+}
+
+.payment-value {
+  color: var(--summary-payment-text);
+  font-size: 0.95rem;
+}
+
+/* Celda de Foto del Medidor */
+.photo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.btn-photo-upload {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px dashed #cbd5e1;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-photo-upload:hover {
+  background: var(--primary-light);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.photo-preview-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.photo-thumb {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--primary-blue);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.photo-thumb:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.25);
+}
+
+.btn-remove-photo {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background: #ef4444;
+  color: #ffffff;
+  border: 1.5px solid #ffffff;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: background 0.15s;
+}
+
+.btn-remove-photo:hover {
+  background: #dc2626;
+}
+
+/* Modal de Visualización de Foto */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.photo-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(3px);
+}
+
+.photo-modal-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 540px;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1001;
+  animation: modal-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.photo-modal-header {
+  padding: 0.9rem 1.25rem;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.photo-modal-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.btn-close-modal:hover {
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+.photo-modal-body {
+  padding: 1rem;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  max-height: 65vh;
+}
+
+.modal-img {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.photo-modal-footer {
+  padding: 0.75rem 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* Insignia / Tooltip de Alerta */
+.alert-badge-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.alert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--alert-badge-bg);
+  color: var(--alert-text);
+  border: 1px solid var(--alert-badge-border);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: help;
+  animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.alert-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1e293b;
+  color: #ffffff;
+  text-align: center;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 400;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+}
+
+.alert-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #1e293b transparent transparent transparent;
+}
+
+.alert-badge-container:hover .alert-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Botón de eliminar fila */
+.btn-delete {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid transparent;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecdd3;
+}
+
+/* Barra inferior de la tabla (Botón agregar) */
+.table-footer {
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-add {
+  background: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.btn-add:hover {
+  background: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+.rows-counter {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   PANEL DE RESUMEN INFERIOR
+   ========================================================================== */
+
+.summary-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.summary-card {
+  background: var(--surface-card);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.summary-card.consumption .summary-icon {
+  background: var(--summary-consumption-bg);
+  border: 1px solid var(--summary-consumption-border);
+  color: var(--primary-blue);
+}
+
+.summary-card.payment .summary-icon {
+  background: var(--summary-payment-bg);
+  border: 1px solid var(--summary-payment-border);
+  color: var(--summary-payment-text);
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.summary-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-card.consumption .summary-value {
+  color: var(--primary-navy);
+}
+
+.summary-card.payment .summary-value {
+  color: var(--summary-payment-text);
+}
+
+.summary-card.action-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #f8fbff 0%, #edf5fd 100%);
+  border: 1.5px dashed var(--primary-border);
+}
+
+.btn-pdf-large {
+  width: 100%;
+  height: 100%;
+  min-height: 54px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-navy));
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28);
+}
+
+.btn-pdf-large:hover {
+  background: linear-gradient(135deg, var(--primary-blue-hover), #0c2f57);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.38);
+  transform: translateY(-2px);
+}
+
+.btn-pdf-large:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   ESTILOS PARA EXPORTACIÓN E IMPRESIÓN (PDF)
+   ========================================================================== */
+
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+  }
+
+  .app-header {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0.5rem 0 1rem 0 !important;
+  }
+
+  .header-actions,
+  .table-footer,
+  .btn-delete,
+  .btn-pdf-large,
+  .action-card {
+    display: none !important;
+  }
+
+  th:last-child,
+  td:last-child {
+    display: none !important;
+  }
+
+  .table-card,
+  .summary-card {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  .water-table th,
+  .water-table td {
+    padding: 0.4rem 0.5rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .table-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .period-config-card {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .period-input {
+    width: 130px;
+  }
+
+  .btn-pdf {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rate-config-card {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .date-config-card {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-add {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .rows-counter {
+    text-align: center;
+  }
+
+  .summary-panel {
+    grid-template-columns: 1fr;
+  }
+}
